@@ -1,3 +1,5 @@
+<!-- newsletter-custom.liquid -->
+
 {{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
 {{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
 
@@ -45,8 +47,9 @@
           </div>
         {%- when 'email_form' -%}
           <div {{ block.shopify_attributes }}>
-            {% form 'customer', class: 'newsletter-form' %}
+            {% form 'customer', class: 'newsletter-form', id: 'ContactFooter' %}
               <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
               <div
                 class="newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                 {% if settings.animations_reveal_on_scroll %}
@@ -119,6 +122,20 @@
     {%- endfor -%}
   </div>
 </div>
+
+<!-- Script for reCAPTCHA handling -->
+<script>
+  document.getElementById('ContactFooter').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{ shop.shopify_recaptcha_site_key }}', {action: 'submit'}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+        document.getElementById('ContactFooter').submit(); // Submit form after token generation
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {

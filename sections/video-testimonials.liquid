@@ -1,0 +1,286 @@
+<section class="testimonial-slider">
+  <div class="testimonial-header">
+    <h2>{{ section.settings.heading }}</h2>
+    <div class="star-rating">
+      {% for i in (1..5) %}
+        {% if i <= section.settings.average_rating %}
+          ★
+        {% else %}
+          ☆
+        {% endif %}
+      {% endfor %}
+    </div>
+    <p class="testip21">{{ section.settings.subheading }}</p>
+  </div>
+
+  <div class="testimonial-slides">
+    {% for block in section.blocks %}
+      <div class="testimonial-slide">
+        <video controls>
+          <source src="{{ block.settings.video_url }}" type="video/mp4">
+        </video>
+        <h3 class="testi-title">{{ block.settings.testimonial_title }}</h3>
+        <p class="testip" >{{ block.settings.testimonial_text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Schema.org JSON-LD for Testimonials -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Product",
+    "name": "{{ section.settings.product_name }}"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{{ section.settings.author_name }}"
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "{{ section.settings.average_rating }}",
+    "bestRating": "5"
+  },
+  "reviewBody": "{{ section.settings.review_body }}",
+  "video": {
+    "@type": "VideoObject",
+    "name": "{{ block.settings.testimonial_title }}",
+    "contentUrl": "{{ block.settings.video_url }}",
+    "description": "{{ block.settings.testimonial_text }}"
+  }
+}
+</script>
+
+<style>
+  /* .testimonial-slider {
+    text-align: center;
+    color: #fff;
+    background-color: #FFF9F0;
+    padding: 20px;
+  } */
+
+.testimonial-header h2 {
+    font-family: 'Times New Roman Cyr';
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 38px;
+    color: #493F41;
+    margin-top: 100px;
+    margin-bottom: 10px;
+}
+
+  .star-rating {
+    font-size: 32px;
+    color: gold;
+  }
+
+  .testimonial-slides {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    overflow: hidden;
+  }
+
+  p.testip21 {
+    font-family: 'Times New Roman Cyr';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 25px;
+    color: #493F41;
+    margin-top: 10px;
+}
+
+.testimonial-slider {
+    text-align: center;
+    color: #fff;
+    background-color: #FAF2E5;
+    padding: 20px;
+    max-width: 1290px;
+    margin: 0 auto;
+}
+  
+  .testimonial-slide video {
+    width: 570px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+    h3.testi-title {
+    font-family: 'Times New Roman Cyr';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 140%;
+    color: #493F41;
+    text-align: left;
+    margin-top: 25px;
+    margin-bottom: 11px;
+}
+  p.testip {
+    font-family: 'Meutas';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    color: #707070;
+    text-align: left;
+}
+
+  @media (max-width: 750px) {
+    .testimonial-header h2 {
+        font-size: 36px; /* Smaller size for mobile */
+        margin-top: 50px;
+    }
+
+    .star-rating {
+        font-size: 24px; /* Adjust star rating size */
+    }
+
+    p.testip21 {
+        font-size: 24px; /* Smaller testimonial text */
+    }
+
+    h3.testi-title {
+        font-size: 24px; /* Adjust title size */
+    }
+
+    p.testip {
+        font-size: 14px; /* Adjust paragraph size */
+    }
+
+    .testimonial-slide video {
+        width: 100%; /* Full width on mobile */
+    }
+}
+
+/* Media Query for devices between 751px and 1024px */
+@media (min-width: 751px) and (max-width: 1024px) {
+    .testimonial-header h2 {
+        font-size: 42px; /* Medium size for tablets */
+        margin-top: 75px;
+    }
+
+    .star-rating {
+        font-size: 28px; /* Medium star rating size */
+    }
+
+    p.testip21 {
+        font-size: 28px; /* Medium testimonial text */
+    }
+
+    h3.testi-title {
+        font-size: 28px; /* Medium title size */
+    }
+
+    p.testip {
+        font-size: 15px; /* Medium paragraph size */
+    }
+
+    .testimonial-slide video {
+        width: 100%; /* Full width on tablets */
+    }
+}
+
+</style>
+
+
+{% schema %}
+{
+  "name": "Video Testimonials Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "See what customers are saying"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Trustpilot 4.8 star average"
+    },
+    {
+      "type": "range",
+      "id": "average_rating",
+      "label": "Average Rating",
+      "min": 1,
+      "max": 5,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "product_name",
+      "label": "Product Name",
+      "default": "Product Name"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Author Name",
+      "default": "Author Name"
+    },
+    {
+      "type": "textarea",
+      "id": "review_body",
+      "label": "Review Body",
+      "default": "This product is great!"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "testimonial_title",
+          "label": "Testimonial Title",
+          "default": "I feel so good"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_text",
+          "label": "Testimonial Text",
+          "default": "Lorem ipsum dolor sit amet."
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Testimonials Slider",
+      "category": "Testimonials"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+<!-- Add this to your theme.liquid or section template -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css"/>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.testimonial-slides').slick({
+      dots: true,
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 5000
+    });
+  });
+</script>
+
+</script>
+

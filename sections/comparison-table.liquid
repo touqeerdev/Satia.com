@@ -1,0 +1,209 @@
+<!-- comparison-table.liquid -->
+
+<div class="comparison-container">
+  <div class="satia-parent" id="satia-grand-parent_123456789">
+    <div class="comparison-section">
+      <h2>{{ section.settings.heading_text }}</h2>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>{{ section.settings.header_1 }}</th>
+              <th>{{ section.settings.header_2 }}</th>
+              <th>{{ section.settings.header_3 }}</th>
+              <th>{{ section.settings.header_4 }}</th>
+              <th>{{ section.settings.header_5 }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in section.blocks %}
+              <tr>
+                <td class="product-details">
+                  <img src="{{ row.settings.product_info | image_url: '300x' }}" alt="Product Logo">
+                </td>
+                {% for col in (1..4) %}
+                  <td>
+                    {% assign col_setting = 'col_' | append: col %}
+                    {% if row.settings[col_setting] %}
+                      <img src="{{ 'check-icon.png' | asset_url }}" alt="Checked">
+                    {% else %}
+                      <img src="{{ 'cross-icon.png' | asset_url }}" alt="Unchecked">
+                    {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  .comparison-container {
+    width: 1290px;
+    margin: 0 auto;
+  }
+  .comparison-section {
+    padding: 20px;
+    text-align: center;
+  }
+  tr:nth-child(even) {
+    background-color: {{ section.settings.row_bg_color }};
+  }
+  #satia-grand-parent_123456789 .comparison-table th.product-info {
+    font-family: Times New Roman Cyr;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: left;
+    color: #FFFFFF;
+    font-weight: 600;
+    background-color: #222222;
+    padding: 25px;
+  }
+  #satia-grand-parent_123456789 .comparison-section h2 {
+    font-family: Times New Roman Cyr;
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 72.8px;
+    text-align: center;
+  }
+  #satia-grand-parent_123456789 td.product-details {
+    padding: 28px 60px !important;
+  }
+  #satia-grand-parent_123456789 .comparison-table {
+    width: 1290px;
+    overflow-x: auto;
+    max-width: 100%;
+    margin-top: 50px;
+    margin: 0 auto;
+  }
+  #satia-grand-parent_123456789 .comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #satia-grand-parent_123456789 .comparison-table th,
+  #satia-grand-parent_123456789 .comparison-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #E0E0E0;
+  }
+  #satia-grand-parent_123456789 .comparison-table th {
+    color: #FFFFFF;
+    background-color: #000;
+    width: 95px;
+  }
+  #satia-grand-parent_123456789 .comparison-table td {
+    font-family: Times New Roman Cyr;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #707070;
+  }
+  #satia-grand-parent_123456789 .comparison-table img {
+    width: 20px;
+    height: 20px;
+  }
+  @media (max-width: 768px) {
+    .comparison-section h2 {
+      font-size: 28px;
+    }
+    .comparison-table th,
+    .comparison-table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+</style>
+
+<!-- Schema for Theme Editor -->
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "How Do We Stack Up? US vs THEM"
+    },
+    {
+      "type": "color",
+      "id": "row_bg_color",
+      "label": "Row Background Color",
+      "default": "#FFF9F0"
+    },
+    {
+      "type": "text",
+      "id": "header_1",
+      "label": "Header 1",
+      "default": "Product Info"
+    },
+    {
+      "type": "text",
+      "id": "header_2",
+      "label": "Header 2",
+      "default": "100% Real Mushrooms"
+    },
+    {
+      "type": "text",
+      "id": "header_3",
+      "label": "Header 3",
+      "default": "Collagen Protein"
+    },
+    {
+      "type": "text",
+      "id": "header_4",
+      "label": "Header 4",
+      "default": "No Sediment"
+    },
+    {
+      "type": "text",
+      "id": "header_5",
+      "label": "Header 5",
+      "default": "Low Caffeine"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Table Row",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "product_info",
+          "label": "Product Info"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_1",
+          "label": "Column 1 Checked"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_2",
+          "label": "Column 2 Checked"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_3",
+          "label": "Column 3 Checked"
+        },
+        {
+          "type": "checkbox",
+          "id": "col_4",
+          "label": "Column 4 Checked"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

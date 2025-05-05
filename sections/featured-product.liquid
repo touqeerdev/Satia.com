@@ -105,6 +105,15 @@
                   >
                     {{- block.settings.text -}}
                   </p>
+                  <ul class="banner-hero-para">
+                    <li>Premium plant-based meal shake from whole foods</li>
+                    <li>24 Superfoods in science-backed ratios</li>
+                    <li>Healthiest meal in a minute</li>
+                    <li>Designed to optimize 6 key aspects of human health</li>
+                    <li>Perfect for breakfast, after workout or whenever hunger calls</li>
+                    <li>Great tasting natural cacao flavor.</li>
+                    <li>Just Scoop, Shake, Drink</li>
+                  </ul>
                 {%- when 'title' -%}
                   <h2 class="product__title {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
                     {%- unless placeholder -%}
@@ -251,7 +260,7 @@
                                   | money_with_currency
                                 -%}
                                 <span class="price-per-item--current">
-                                  {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                  {{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}
                                 </span>
                               {%- else -%}
                                 {%- for price_break in volume_pricing_array -%}
@@ -259,7 +268,7 @@
                                     {%- assign price_break_price = price_break.price | money_with_currency -%}
                                     <span class="price-per-item--current">
                                       {{-
-                                        'products.product.volume_pricing.price_at_each_html'
+                                        'products.product.volume_pricing.price_at_each'
                                         | t: price: price_break_price
                                       -}}
                                     </span>
@@ -289,13 +298,13 @@
                                   </dt>
                                   <dd>
                                     <span class="price-per-item--current">
-                                      {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                      {{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}
                                     </span>
                                   </dd>
                                 </dl>
                               {%- else -%}
                                 <span class="price-per-item--current">
-                                  {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                  {{- 'products.product.volume_pricing.price_at_each' | t: price: variant_price -}}
                                 </span>
                               {%- endif -%}
                             </div>
@@ -339,7 +348,7 @@
                               {%- assign price = product.selected_or_first_available_variant.price
                                 | money_with_currency
                               -%}
-                              <span data-text="{{ 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price }}">
+                              <span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: variant_price }}">
                                 {{ 'sections.quick_order_list.each' | t: money: price -}}
                               </span>
                             </li>
@@ -351,7 +360,7 @@
                                   <span aria-hidden="true">+</span></span
                                 >
                                 {%- assign price = price_break.price | money_with_currency -%}
-                                <span data-text="{{ 'products.product.volume_pricing.price_at_each_html' | t: price: price_break_price }}">
+                                <span data-text="{{ 'products.product.volume_pricing.price_at_each' | t: price: price_break_price }}">
                                   {{ 'sections.quick_order_list.each' | t: money: price -}}
                                 </span>
                               </li>
@@ -678,6 +687,14 @@
           "id": "share_label",
           "label": "t:sections.featured-product.blocks.share.settings.text.label",
           "default": "t:sections.featured-product.blocks.share.settings.text.default"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.featured-product.blocks.share.settings.featured_image_info.content"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.featured-product.blocks.share.settings.title_info.content"
         }
       ]
     },
@@ -1340,7 +1357,8 @@
     },
     {
       "type": "header",
-      "content": "t:sections.featured-product.settings.header.content"
+      "content": "t:sections.featured-product.settings.header.content",
+      "info": "t:sections.featured-product.settings.header.info"
     },
     {
       "type": "select",
@@ -1360,7 +1378,8 @@
         }
       ],
       "default": "medium",
-      "label": "t:sections.main-product.settings.media_size.label"
+      "label": "t:sections.main-product.settings.media_size.label",
+      "info": "t:sections.main-product.settings.media_size.info"
     },
     {
       "type": "checkbox",
@@ -1398,7 +1417,8 @@
         }
       ],
       "default": "left",
-      "label": "t:sections.featured-product.settings.media_position.label"
+      "label": "t:sections.featured-product.settings.media_position.label",
+      "info": "t:sections.featured-product.settings.media_position.info"
     },
     {
       "type": "select",
@@ -1418,7 +1438,8 @@
         }
       ],
       "default": "lightbox",
-      "label": "t:sections.main-product.settings.image_zoom.label"
+      "label": "t:sections.main-product.settings.image_zoom.label",
+      "info": "t:sections.main-product.settings.image_zoom.info"
     },
     {
       "type": "checkbox",
